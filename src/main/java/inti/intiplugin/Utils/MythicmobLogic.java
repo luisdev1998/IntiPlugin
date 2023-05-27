@@ -120,8 +120,9 @@ public class MythicmobLogic {
                 } else if (isRankedReward) {
                     Plugin.getServer().broadcastMessage(MythicMob.OnRankedTopMessage
                                         .replace("%player",player.getName())
-                                        .replace("%top%",String.valueOf(rank)
-                                        .replace("%damage",String.valueOf(damage))));
+                                        .replace("%top%",String.valueOf(rank))
+                                        .replace("%damage%",String.valueOf(damage))
+                    );
                 }
 
                 for (String command : commandsToExecute) {
