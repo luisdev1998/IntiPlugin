@@ -1,0 +1,8 @@
+name: IntiPlugin
+version: '1.0-SNAPSHOT'
+main: inti.intiplugin.IntiPlugin
+api-version: 1.19
+commands:
+  intiplugin:
+    aliasses: {s}
+    descripcion: a!.

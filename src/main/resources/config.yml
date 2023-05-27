@@ -1,0 +1,207 @@
+plugin-permission: 'intiplugin'
+
+whitelist-config:
+  enable: true
+  seconds-after-start-server: 60
+
+restart-config: #intiplugin restart ...
+  enable: true
+  command-message: 'message {time}'
+  command-restart: 'restart'
+  title: '§e§l¡REINICIO EN {time} MINUTOS!'
+  subtitle: '§cSolo tomará 1 minuto :D'
+
+rankbenefit-config:
+  '1':
+    rank: 'inti'
+    on-join:
+      enable: true
+      sound: 'ENTITY_WITHER_DEATH,1,2'
+      broadcast-message:
+        - '§c§l EL JUGADOR %player% SE HA CONECTADO'
+    on-hit:
+      enable: true
+      sound: 'ENTITY_RAVAGER_HURT,1,0.5'
+      seconds-interval-sound: 2
+    on-death:
+      enable: true
+      sound: 'ENTITY_WITHER_DEATH,1,2'
+
+death-config:
+  enable: true
+  title: '§a§lAL MORIR USA'
+  subtitle: '§c§l/back'
+
+firstjoin-config:
+  enable: true
+  fist-title: '§6§lBIENVENIDO A LA MODALIDAD'
+  fist-subtitle: '§e§lSURVIVAL CUSTOM'
+  second-message-enable: true
+  second-title: '§a§lNO OLVIDES USAR'
+  second-subtitle: '§b§l/menu'
+  third-message-enable: true
+  third-title: '§e§lDIVIÉRTETE :D'
+  third-subtitle: '§a§lUsa §b/votar §a§lpara ganar premios'
+  broadcast-message:
+    - ''
+    - '§m§6----------------- §6§lNUEVO JUGADOR §m§6-----------------'
+    - '§6§lBIENVENIDO AL SURVIVAL CUSTOM ☀ §a%player% §6§l☀'
+    - '§m§6-----------------------------------------------------'
+    - ''
+  commands:
+    - 'ps give HONGO %player%'
+  items:
+    '1':
+      material: 'CHAINMAIL_HELMET'
+      quantity: 1
+      display-name: '§e§lYelmo §6§lInicial'
+      equip: true
+      lore: []
+      enchantments: []
+    '2':
+      material: 'CHAINMAIL_CHESTPLATE'
+      quantity: 1
+      display-name: '§e§lPechera §6§lInicial'
+      equip: true
+      lore: []
+      enchantments: []
+    '3':
+      material: 'CHAINMAIL_LEGGINGS'
+      quantity: 1
+      display-name: '§e§lGrebas §6§lInicial'
+      equip: true
+      lore: []
+      enchantments: []
+    '4':
+      material: 'CHAINMAIL_BOOTS'
+      quantity: 1
+      display-name: '§e§lBotas §6§lInicial'
+      equip: true
+      lore: []
+      enchantments: []
+    '5':
+      material: 'IRON_SWORD'
+      quantity: 1
+      display-name: '§e§lEspada §6§lInicial'
+      lore: []
+      enchantments: []
+    '6':
+      material: 'STONE_AXE'
+      quantity: 1
+      display-name: '§e§lHacha §6§lInicial'
+      lore: []
+      enchantments: []
+    '7':
+      material: 'STONE_PICKAXE'
+      quantity: 1
+      display-name: '§e§lPico §6§lInicial'
+      lore: []
+      enchantments: []
+    '8':
+      material: 'STONE_SHOVEL'
+      quantity: 1
+      display-name: '§e§lPala §6§lInicial'
+      lore: []
+      enchantments: []
+    '9':
+      material: 'BOW'
+      quantity: 1
+      display-name: '§e§lArco §6§lInicial'
+      lore: []
+      enchantments: []
+    '10':
+      material: 'ARROW'
+      quantity: 32
+      display-name: '§e§lFlecha §6§lInicial'
+      lore: []
+      enchantments: []
+    '11':
+      material: 'COOKED_BEEF'
+      quantity: 32
+      display-name: '§e§lComida §6§lInicial'
+      lore: []
+      enchantments: []
+
+ruleta-config:
+  intifest:
+    all-player: true
+    title: '§e§l!RULETA EN 3 SEGUNDOS¡'
+    subtitle: '§aGracias por votar'
+    rewards:
+      '1':
+        symbol: '§9[ ⚡ ]'
+        title: '§a§lGanaste: {symbol}'
+        subtitle: '§9Trueno'
+        commands:
+          - 'playsound minecraft:ambient.underwater.enter player %player% ~ ~ ~'
+          - ''
+      '2':
+        symbol: '§2[ ☢ ]'
+        title: '§a§lGanaste: {symbol}'
+        subtitle: '§2Envenamiento'
+        commands:
+          - 'playsound minecraft:ambient.underwater.enter player %player% ~ ~ ~'
+          - ''
+      '3':
+        symbol: '§6[ ⚔ ]'
+        title: '§a§lGanaste: {symbol}'
+        subtitle: '§6Escombros x1'
+        commands:
+          - 'playsound minecraft:ambient.underwater.enter player %player% ~ ~ ~'
+          - ''
+  jefe1:
+    all-player: false
+    title: '§e§l!RULETA EN 3 SEGUNDOS¡'
+    subtitle: '§aGracias por votar'
+    rewards:
+      '1':
+        symbol: '§9[ ⚡ ]'
+        title: '§a§lGanaste: {symbol}'
+        subtitle: '§9Trueno'
+        commands:
+          - 'playsound minecraft:ambient.underwater.enter player %player% ~ ~ ~'
+          - ''
+      '2':
+        symbol: '§2[ ☢ ]'
+        title: '§a§lGanaste: {symbol}'
+        subtitle: '§2Envenamiento'
+        commands:
+          - 'playsound minecraft:ambient.underwater.enter player %player% ~ ~ ~'
+          - ''
+      '3':
+        symbol: '§6[ ⚔ ]'
+        title: '§a§lGanaste: {symbol}'
+        subtitle: '§6Escombros x1'
+        commands:
+          - 'playsound minecraft:ambient.underwater.enter player %player% ~ ~ ~'
+          - ''
+
+mythicmob-config:
+  '1':
+    name: 'jefe1_arqueros'
+    glowing: true
+    glow-color: 'GOLD'
+    coins:
+      enable: true
+      glow-color: 'GOLD'
+      stack: 10
+      min-money: 1
+      max-money: 5
+    command-spawn: #intiplugin spawn jefe1_arqueros
+      enable: true
+      world: 'world'
+      cords: '11,11,11'
+    ranked-damage:
+      enable: true
+      rewards-ranked:
+        '1': #1° puesto
+          commands:
+            - 'mm i give %player% AdminGreatsword {3-5}'
+            - 'mm i give %player% COOL_ITEM {3-5}'
+        '2': #2° puesto
+          commands:
+            - 'mm i give %player% AdminGreatsword {1-3}'
+            - 'mm i give %player% COOL_ITEM {1-3}'
+      rewards-default:
+        - 'mm i give %player% TestFurniture {1-1}'
+      top-message: '§a%top%° El jugador §e%player% §arealizó un daño total de §e%damage%'
