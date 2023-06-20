@@ -1,4 +1,4 @@
-package inti.intiplugin.Listeners;
+package inti.intiplugin.Events;
 
 import inti.intiplugin.Aditionals.ConfigManager;
 import inti.intiplugin.Models.FirstjoinConfig.FirstItems;
@@ -51,30 +51,36 @@ public class PlayerEvents implements Listener {
 
     @EventHandler
     private void onPlayerDeath(PlayerRespawnEvent event){
+        ////*** death-config ***////
         Player Player = event.getPlayer();
         if(ConfigManager.getDeathConfigEnable()){
             Player.playSound(Player.getLocation(), Sound.ENTITY_ITEM_BREAK, 2.0F, 1.0F);
             Player.sendTitle(ConfigManager.getDeathConfigTitle(), ConfigManager.getDeathConfigSubTitle(), 5, 120, 5);
         }
+        //************************//
     }
 
     @EventHandler
     private void onPlayerDeath(PlayerDeathEvent event){
-        Player Player = event.getEntity();
-        String rank = getPlayerPrimaryGroup(Player);
-        if (rank != null) {
-            for (Rankbenefit rankPlayer : ConfigManager.getRankBenefitConfigEnable()) {
-                if(rankPlayer.Rank.equals(rank)) {
-                    if(rankPlayer.OnDeathEnable){
-                        String[] soundInfo = rankPlayer.OnJoinSound.split(",");
-                        Sound sound = Sound.valueOf(soundInfo[0]);
-                        float volume = Float.parseFloat(soundInfo[1]);
-                        float pitch = Float.parseFloat(soundInfo[2]);
-                        Player.playSound(Player.getLocation(),sound,volume,pitch);
+        ////*** rankbenefit-config ***////
+        if(ConfigManager.getRankBenefitConfigEnable().Enable){
+            Player Player = event.getEntity();
+            String rank = getPlayerPrimaryGroup(Player);
+            if (rank != null) {
+                for (Rankbenefit rankPlayer : ConfigManager.getRankBenefitConfigEnable().Rankbenefit) {
+                    if(rankPlayer.Rank.equals(rank)) {
+                        if(rankPlayer.OnDeathEnable){
+                            String[] soundInfo = rankPlayer.OnJoinSound.split(",");
+                            Sound sound = Sound.valueOf(soundInfo[0]);
+                            float volume = Float.parseFloat(soundInfo[1]);
+                            float pitch = Float.parseFloat(soundInfo[2]);
+                            Player.playSound(Player.getLocation(),sound,volume,pitch);
+                        }
                     }
                 }
             }
         }
+        //*****************************//
     }
 
     @EventHandler
@@ -135,28 +141,32 @@ public class PlayerEvents implements Listener {
     @EventHandler
     private void onPlayerJoin(PlayerJoinEvent event){
         event.setJoinMessage(null);
-        Player Player = event.getPlayer();
-        String rank = getPlayerPrimaryGroup(Player);
-        if (rank != null) {
-            for(Rankbenefit rankPlayer : ConfigManager.getRankBenefitConfigEnable()){
-                if(rankPlayer.Rank.equals(rank)) {
-                    if(rankPlayer.OnJoinEnable){
-                        //BroadcastMessage
-                        for(String broadcastmessage : rankPlayer.OnJoinBroadcaastMessage){
-                            Plugin.getServer().broadcastMessage(broadcastmessage.replace("%player%",Player.getName()));
-                        }
-                        //Sound
-                        for (Player PlayerOnline : Plugin.getServer().getOnlinePlayers()) {
-                            String[] soundInfo = rankPlayer.OnJoinSound.split(",");
-                            Sound sound = Sound.valueOf(soundInfo[0]);
-                            float volume = Float.parseFloat(soundInfo[1]);
-                            float pitch = Float.parseFloat(soundInfo[2]);
-                            PlayerOnline.playSound(PlayerOnline.getLocation(),sound,volume,pitch);
+        ////*** rankbenefit-config ***////
+        if(ConfigManager.getRankBenefitConfigEnable().Enable){
+            Player Player = event.getPlayer();
+            String rank = getPlayerPrimaryGroup(Player);
+            if (rank != null) {
+                for(Rankbenefit rankPlayer : ConfigManager.getRankBenefitConfigEnable().Rankbenefit){
+                    if(rankPlayer.Rank.equals(rank)) {
+                        if(rankPlayer.OnJoinEnable){
+                            //BroadcastMessage
+                            for(String broadcastmessage : rankPlayer.OnJoinBroadcaastMessage){
+                                Plugin.getServer().broadcastMessage(broadcastmessage.replace("%player%",Player.getName()));
+                            }
+                            //Sound
+                            for (Player PlayerOnline : Plugin.getServer().getOnlinePlayers()) {
+                                String[] soundInfo = rankPlayer.OnJoinSound.split(",");
+                                Sound sound = Sound.valueOf(soundInfo[0]);
+                                float volume = Float.parseFloat(soundInfo[1]);
+                                float pitch = Float.parseFloat(soundInfo[2]);
+                                PlayerOnline.playSound(PlayerOnline.getLocation(),sound,volume,pitch);
+                            }
                         }
                     }
                 }
             }
         }
+        //*****************************//
     }
 
     @EventHandler
@@ -164,28 +174,31 @@ public class PlayerEvents implements Listener {
         if (event.isCancelled()) {
             return;
         }
-        if (event.getEntity() instanceof Player) {
-            Player player = (Player) event.getEntity();
-            double healthBefore = player.getHealth();
-            double damage = event.getDamage();
-            double healthAfter = Math.max(healthBefore - damage, 0);
-            if (healthBefore > healthAfter) {
-                String rank = getPlayerPrimaryGroup(player);
-                if (rank != null) {
-                    for (Rankbenefit rankPlayer : ConfigManager.getRankBenefitConfigEnable()) {
-                        if (rankPlayer.Rank.equals(rank)) {
-                            if(rankPlayer.OnHitEnable){
-                                UUID playerId = player.getUniqueId();
-                                long currentTime = System.currentTimeMillis();
-                                long lastHitTime = playerHitTimestamps.getOrDefault(playerId, 0L);
-                                long timeDifference = currentTime - lastHitTime;
-                                if (timeDifference >= rankPlayer.OnHitInterval*1000) { // 1000 ms = 1 segundo
-                                    String[] soundInfo = rankPlayer.OnHitSound.split(",");
-                                    Sound sound = Sound.valueOf(soundInfo[0]);
-                                    float volume = Float.parseFloat(soundInfo[1]);
-                                    float pitch = Float.parseFloat(soundInfo[2]);
-                                    playerHitTimestamps.put(playerId, currentTime);
-                                    player.getWorld().playSound(player.getLocation(),sound,volume,pitch);
+        ////*** rankbenefit-config ***////
+        if(ConfigManager.getRankBenefitConfigEnable().Enable){
+            if (event.getEntity() instanceof Player) {
+                Player player = (Player) event.getEntity();
+                double healthBefore = player.getHealth();
+                double damage = event.getDamage();
+                double healthAfter = Math.max(healthBefore - damage, 0);
+                if (healthBefore > healthAfter) {
+                    String rank = getPlayerPrimaryGroup(player);
+                    if (rank != null) {
+                        for (Rankbenefit rankPlayer : ConfigManager.getRankBenefitConfigEnable().Rankbenefit) {
+                            if (rankPlayer.Rank.equals(rank)) {
+                                if(rankPlayer.OnHitEnable){
+                                    UUID playerId = player.getUniqueId();
+                                    long currentTime = System.currentTimeMillis();
+                                    long lastHitTime = playerHitTimestamps.getOrDefault(playerId, 0L);
+                                    long timeDifference = currentTime - lastHitTime;
+                                    if (timeDifference >= rankPlayer.OnHitInterval*1000) { // 1000 ms = 1 segundo
+                                        String[] soundInfo = rankPlayer.OnHitSound.split(",");
+                                        Sound sound = Sound.valueOf(soundInfo[0]);
+                                        float volume = Float.parseFloat(soundInfo[1]);
+                                        float pitch = Float.parseFloat(soundInfo[2]);
+                                        playerHitTimestamps.put(playerId, currentTime);
+                                        player.getWorld().playSound(player.getLocation(),sound,volume,pitch);
+                                    }
                                 }
                             }
                         }
@@ -193,27 +206,32 @@ public class PlayerEvents implements Listener {
                 }
             }
         }
+        //*****************************//
     }
 
     @EventHandler
     private void onPlayerDeath(EntityDeathEvent event){
-        if(event.getEntity() instanceof Player){
-            Player Player = (Player) event.getEntity();
-            String rank = getPlayerPrimaryGroup(Player);
-            if (rank != null) {
-                for (Rankbenefit rankPlayer : ConfigManager.getRankBenefitConfigEnable()) {
-                    if(rankPlayer.Rank.equals(rank)) {
-                        if(rankPlayer.OnDeathEnable){
-                            String[] soundInfo = rankPlayer.OnDeathSound.split(",");
-                            Sound sound = Sound.valueOf(soundInfo[0]);
-                            float volume = Float.parseFloat(soundInfo[1]);
-                            float pitch = Float.parseFloat(soundInfo[2]);
-                            Player.getWorld().playSound(Player.getLocation(),sound,volume,pitch);
+        //*****************************//
+        if(ConfigManager.getRankBenefitConfigEnable().Enable){
+            if(event.getEntity() instanceof Player){
+                Player Player = (Player) event.getEntity();
+                String rank = getPlayerPrimaryGroup(Player);
+                if (rank != null) {
+                    for (Rankbenefit rankPlayer : ConfigManager.getRankBenefitConfigEnable().Rankbenefit) {
+                        if(rankPlayer.Rank.equals(rank)) {
+                            if(rankPlayer.OnDeathEnable){
+                                String[] soundInfo = rankPlayer.OnDeathSound.split(",");
+                                Sound sound = Sound.valueOf(soundInfo[0]);
+                                float volume = Float.parseFloat(soundInfo[1]);
+                                float pitch = Float.parseFloat(soundInfo[2]);
+                                Player.getWorld().playSound(Player.getLocation(),sound,volume,pitch);
+                            }
                         }
                     }
                 }
             }
         }
+        //*****************************//
     }
 
     @EventHandler

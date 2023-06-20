@@ -1,4 +1,4 @@
-package inti.intiplugin.Listeners;
+package inti.intiplugin.Events;
 
 import inti.intiplugin.Models.MythicConfig.MythicMob;
 import inti.intiplugin.Models.MythicConfig.MythicMobCoin;

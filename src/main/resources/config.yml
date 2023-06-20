@@ -1,31 +1,38 @@
+#permiso para usar los comandos de intiplugin
 plugin-permission: 'intiplugin'
 
 whitelist-config:
   enable: true
+  #despues de cuánto tiempo en segundos se ejecutará el "whitelsit off" una vez se haya encendido el servidor
   seconds-after-start-server: 60
 
-restart-config: #intiplugin restart ...
+restart-config:
   enable: true
+  #comando enviar el mensaje de alerta: /intiplugin restart <command> <tiempo>
   command-message: 'message {time}'
+  #comando para reiniciar el servidor (mandará titulos de 3,2,1 antes de reiniciar): /intiplugin restart <command>
   command-restart: 'restart'
+  #titulo y subtitulo solo para los mensajes de alterta
   title: '§e§l¡REINICIO EN {time} MINUTOS!'
   subtitle: '§cSolo tomará 1 minuto :D'
 
 rankbenefit-config:
-  '1':
-    rank: 'inti'
-    on-join:
-      enable: true
-      sound: 'ENTITY_WITHER_DEATH,1,2'
-      broadcast-message:
-        - '§c§l EL JUGADOR %player% SE HA CONECTADO'
-    on-hit:
-      enable: true
-      sound: 'ENTITY_RAVAGER_HURT,1,0.5'
-      seconds-interval-sound: 2
-    on-death:
-      enable: true
-      sound: 'ENTITY_WITHER_DEATH,1,2'
+  enable: true
+  benefits:
+    '1':
+      rank: 'inti'
+      on-join:
+        enable: true
+        sound: 'ENTITY_WITHER_DEATH,1,2'
+        broadcast-message:
+          - '§c§l EL JUGADOR %player% SE HA CONECTADO'
+      on-hit:
+        enable: true
+        sound: 'ENTITY_RAVAGER_HURT,1,0.5'
+        seconds-interval-sound: 2
+      on-death:
+        enable: true
+        sound: 'ENTITY_WITHER_DEATH,1,2'
 
 death-config:
   enable: true
@@ -204,4 +211,38 @@ mythicmob-config:
             - 'mm i give %player% COOL_ITEM {1-3}'
       rewards-default:
         - 'mm i give %player% TestFurniture {1-1}'
-      top-message: '§a%top%° El jugador §e%player% §arealizó un daño total de §e%damage%'
+      top-message: '§a%top%° El jugador §6%player% §arealizó un daño total de §c%damage%'
+
+#{job} {level} {nexlevel}
+jobs-config:
+  jobjoin:
+    enable: true
+    title: ''
+    subtitle: ''
+    sound: 'ENTITY_PLAYER_LEVELUP'
+    sound-volume: '2'
+    sound-pitch: '2'
+  levelup:
+    enable: true
+    title: ''
+    subtitle: ''
+    sound: 'ENTITY_PLAYER_LEVELUP'
+    sound-volume: '2'
+    sound-pitch: '0.1'
+  jobleft:
+    enable: true
+    title: ''
+    subtitle: ''
+    sound: 'BLOCK_ANVIL_LAND'
+    sound-volume: '1'
+    sound-pitch: '1'
+
+#{skill} {level} {nexlevel}
+mcmmo-config:
+  levelup:
+    enable: true
+    title: ''
+    subtitle: ''
+    sound: 'ENTITY_PLAYER_LEVELUP'
+    sound-volume: '2'
+    sound-pitch: '2'

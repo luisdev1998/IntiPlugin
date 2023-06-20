@@ -1,10 +1,14 @@
 package inti.intiplugin.Aditionals;
 
 import inti.intiplugin.Models.FirstjoinConfig.FirstItems;
+import inti.intiplugin.Models.JobsConfig.Jobs;
 import inti.intiplugin.Models.MythicConfig.MythicMob;
+import inti.intiplugin.Models.RankbenefitConfig.Rank;
 import inti.intiplugin.Models.RankbenefitConfig.Rankbenefit;
 import inti.intiplugin.Models.RuletaConfig.Ruleta;
 import inti.intiplugin.Models.RuletaConfig.RuletaRewards;
+import inti.intiplugin.Models.mcMMOConfig.mcMMO;
+import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
@@ -71,8 +75,10 @@ public class ConfigManager {
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
 
-    public List<Rankbenefit> getRankBenefitConfigEnable(){
+    public Rank getRankBenefitConfigEnable(){
         ConfigurationSection config = ConfigurationSection.getConfigurationSection("rankbenefit-config");
+        Rank Rank = new Rank();
+        Rank.Enable = config.getBoolean("enable");
         List<Rankbenefit> listRankbenefit = new ArrayList<>();
         for(String rank : config.getKeys(false)){
             Rankbenefit Rankbenefit = new Rankbenefit();
@@ -87,7 +93,8 @@ public class ConfigManager {
             Rankbenefit.OnDeathSound = config.getString(rank + ".on-death.sound");
             listRankbenefit.add(Rankbenefit);
         }
-        return listRankbenefit;
+        Rank.Rankbenefit = listRankbenefit;
+        return Rank;
     }
 
     ///////////////////////////////////////////////////////////////
@@ -181,10 +188,14 @@ public class ConfigManager {
     }
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
+    public Boolean getRuletaConfigEnable() {
+        ConfigurationSection config = ConfigurationSection.getConfigurationSection("ruleta-config");
+        return config.getBoolean("enable");
+    }
     public List<Ruleta> getRuletaConfigRuleta(){
         ConfigurationSection config = ConfigurationSection.getConfigurationSection("ruleta-config");
         List<Ruleta> ListRuleta = new ArrayList<>();
-        for(String ruleta : config.getKeys(false)){
+        for(String ruleta : config.getConfigurationSection("benefits").getKeys(false)){
             Ruleta Ruleta = new Ruleta();
             Ruleta.Ruleta = ruleta;
             Ruleta.AllPlayer = config.getBoolean(ruleta + ".all-player");
@@ -236,5 +247,46 @@ public class ConfigManager {
             listMythicMob.add(Mythicmob);
         }
         return listMythicMob;
+    }
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    public Jobs getJobsConfig(){
+        ConfigurationSection config = ConfigurationSection.getConfigurationSection("jobs-config");
+        Jobs jobs = new Jobs();
+        jobs.JobJoinEnable = config.getBoolean("jobjoin.enable");
+        jobs.JobJoinTitle = config.getString("jobjoin.title");
+        jobs.JobJoinSubTitle = config.getString("jobjoin.subtitle");
+        jobs.JobJoinSound = Sound.valueOf(config.getString("jobjoin.sound"));
+        jobs.JobJoinSoundVolume = config.getDouble("jobjoin.sound-volume");
+        jobs.JobJoinSoundPitch = config.getDouble("jobjoin.sound-pitch");
+
+        jobs.JobLevelupEnable = config.getBoolean("levelup.enable");
+        jobs.JobLevelupTitle = config.getString("levelup.title");
+        jobs.JobLevelupSubTitle = config.getString("levelup.subtitle");
+        jobs.JobLevelupSound = Sound.valueOf(config.getString("levelup.sound"));
+        jobs.JobLevelupSoundVolume = config.getDouble("levelup.sound-volume");
+        jobs.JobLevelupSoundPitch = config.getDouble("levelup.sound-pitch");
+
+        jobs.JobLeftEnable = config.getBoolean("jobleft.enable");
+        jobs.JobLeftTitle = config.getString("jobleft.title");
+        jobs.JobLeftSubTitle = config.getString("jobleft.subtitle");
+        jobs.JobLeftSound = Sound.valueOf(config.getString("jobleft.sound"));
+        jobs.JobLeftSoundVolume = config.getDouble("jobleft.sound-volume");
+        jobs.JobLeftSoundPitch = config.getDouble("jobleft.sound-pitch");
+
+        return jobs;
+    }
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    public mcMMO getmcMMOConfig(){
+        ConfigurationSection config = ConfigurationSection.getConfigurationSection("mcmmo-config");
+        mcMMO mcMMO = new mcMMO();
+        mcMMO.mcMMOLevelupEnable = config.getBoolean("mcmmo.enable");
+        mcMMO.mcMMOLevelupTitle = config.getString("mcmmo.title");
+        mcMMO.mcMMOLevelupSubTitle = config.getString("mcmmo.subtitle");
+        mcMMO.mcMMOLevelupSound = Sound.valueOf(config.getString("mcmmo.sound"));
+        mcMMO.mcMMOLevelupSoundVolume = config.getDouble("mcmmo.sound-volume");
+        mcMMO.mcMMOLevelupSoundPitch = config.getDouble("mcmmo.sound-pitch");
+        return mcMMO;
     }
 }
